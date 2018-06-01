@@ -3143,6 +3143,17 @@ module.exports = (
 
 /***/ }),
 
+/***/ "69mH":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-layout',[_c('v-card',{attrs:{"contextual-style":"dark"}},[_c('span',{attrs:{"slot":"header"},slot:"header"},[_vm._v("\n     SuperDict\n    ")]),_vm._v(" "),_c('div',{attrs:{"slot":"body"},slot:"body"},[_c('p',[_vm._v("Nas Demo 项目")]),_vm._v(" "),_c('div',[_c('button',{staticClass:"btn btn-success",attrs:{"type":"button"},on:{"click":_vm.onSearch}},[_vm._v("搜索")]),_vm._v(" "),_c('button',{staticClass:"btn btn-info",attrs:{"type":"button"},on:{"click":_vm.onSubmit}},[_vm._v("上传")])]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',[_c('ul',{staticClass:"list-group"},[_c('li',{staticClass:"list-group-item"},[_vm._v("Cras justo odio")]),_vm._v(" "),_c('li',{staticClass:"list-group-item"},[_vm._v("Dapibus ac facilisis in")]),_vm._v(" "),_c('li',{staticClass:"list-group-item"},[_vm._v("Morbi leo risus")]),_vm._v(" "),_c('li',{staticClass:"list-group-item"},[_vm._v("Porta ac consectetur ac")]),_vm._v(" "),_c('li',{staticClass:"list-group-item"},[_vm._v("Vestibulum at eros")])])])]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"})])],1)}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+
+/***/ }),
+
 /***/ "6DIh":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3629,152 +3640,6 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher
 
-
-/***/ }),
-
-/***/ "6lhT":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _stringify = __webpack_require__("mvHQ");
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _nebpay = __webpack_require__("6fn7");
-
-var _nebpay2 = _interopRequireDefault(_nebpay);
-
-var _nebulas = __webpack_require__("K1mQ");
-
-var _nebulas2 = _interopRequireDefault(_nebulas);
-
-var _Default = __webpack_require__("ao7l");
-
-var _Default2 = _interopRequireDefault(_Default);
-
-var _Card = __webpack_require__("rhdv");
-
-var _Card2 = _interopRequireDefault(_Card);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  components: {
-    VLayout: _Default2.default,
-    VCard: _Card2.default
-  },
-  data: function data() {
-    return {
-      dappAddress: '',
-      list: ['abc', 'def']
-    };
-  },
-  created: function created() {
-    console.log('created -----', "n1exFH19cJbzVDhTnb2DaoRKztZFJn4efvV");
-    this.dappAddress = "n1exFH19cJbzVDhTnb2DaoRKztZFJn4efvV";
-  },
-
-  methods: {
-    onSearch: function onSearch() {
-      var _this = this;
-
-      console.log('search');
-      var Account = _nebulas2.default.Account;
-      var neb = new _nebulas2.default.Neb();
-      neb.setRequest(new _nebulas2.default.HttpRequest('https://testnet.nebulas.io'));
-      var from = Account.NewAccount().getAddressString();
-
-      var value = '0';
-      var nonce = '0';
-      var gas_price = '1000000';
-      var gas_limit = '2000000';
-      var callFunction = 'get';
-      var callArgs = '["' + 'defsss' + '"]';
-      var contract = {
-        function: callFunction,
-        args: callArgs
-      };
-
-      neb.api.call(from, this.dappAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
-        console.log('response of search: ' + (0, _stringify2.default)(resp));
-        _this.cbSearch(resp);
-      }).catch(function (err) {
-        console.log('error:' + err.message);
-      });
-    },
-    onSubmit: function onSubmit() {
-      console.log('submit');
-      var nebPay = new _nebpay2.default();
-
-      var to = this.dappAddress;
-      var value = '0';
-      var callFunction = 'save';
-
-      var callArgs = "[\"" + "defsss" + "\",\"" + "ddd" + "\"]";
-      var serialNumber = nebPay.call(to, value, callFunction, callArgs, {
-        listener: this.cbPush });
-
-      console.log('serialnum', serialNumber);
-    },
-    onCheck: function onCheck() {
-      console.log('check');
-      var nebPay = new _nebpay2.default();
-
-      var to = this.dappAddress;
-      var value = '0';
-      var callFunction = 'check';
-
-      var callArgs = "[\"" + "defsss" + "\"]";
-      var serialNumber = nebPay.call(to, value, callFunction, callArgs, {
-        listener: this.cbPush });
-
-      console.log('serialnum', serialNumber);
-
-      setTimeout(function () {
-        console.log(' after 1s hahhahah');
-
-        nebPay.queryPayInfo(serialNumber).then(function (resp) {
-          console.log("tx result: " + resp);
-          var respObject = JSON.parse(resp);
-        }).catch(function (err) {
-          console.log(err);
-        });
-      }, 10000);
-    },
-    cbPush: function cbPush(resp) {
-      console.log('response of push: ' + (0, _stringify2.default)(resp));
-    },
-    cbSearch: function cbSearch(resp) {
-      var result = resp.result;
-      console.log('result ', result);
-      result = JSON.parse(result);
-      if (!result) {
-        console.log(' no reulst');
-        return;
-      }
-      this.list = result.list;
-      console.log('new list', this.list);
-    },
-    cbCheck: function cbCheck(resp) {
-      var result = resp.result;
-      console.log('cb Check result ', result);
-      result = JSON.parse(result);
-      if (!result) {
-        console.log(' no reulst');
-        return;
-      }
-      this.list = result.list;
-      console.log('new list', this.list);
-    }
-  }
-
-};
 
 /***/ }),
 
@@ -5335,17 +5200,6 @@ exports.encrypt = function (self, data, decrypt) {
 
 /***/ }),
 
-/***/ "96fM":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('v-layout',[_c('v-card',{attrs:{"contextual-style":"dark"}},[_c('span',{attrs:{"slot":"header"},slot:"header"},[_vm._v("\n     How Many People Paid 0.01 Nas, To See How Many People Paid 0.01 Nas?\n    ")]),_vm._v(" "),_c('div',{attrs:{"slot":"body"},slot:"body"},[_c('div',[_c('button',{staticClass:"btn btn-success",attrs:{"type":"button"},on:{"click":_vm.onSearch}},[_vm._v("搜索")]),_vm._v(" "),_c('button',{staticClass:"btn btn-info",attrs:{"type":"button"},on:{"click":_vm.onSubmit}},[_vm._v("上传")]),_vm._v(" "),_c('button',{staticClass:"btn btn-info",attrs:{"type":"button"},on:{"click":_vm.onCheck}},[_vm._v("分享")])]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',[_c('ul',{staticClass:"list-group"},_vm._l((_vm.list),function(item){return _c('li',{staticClass:"list-group-item"},[_vm._v(_vm._s(item))])}))])]),_vm._v(" "),_c('div',{attrs:{"slot":"footer"},slot:"footer"})])],1)}
-var staticRenderFns = []
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ __webpack_exports__["a"] = (esExports);
-
-/***/ }),
-
 /***/ "9DG0":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5493,21 +5347,6 @@ exports.privateEncrypt = function privateEncrypt(key, buf) {
 exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
-
-/***/ }),
-
-/***/ "9Rsd":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("FZ+f")(true);
-// imports
-
-
-// module
-exports.push([module.i, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"hmpp.vue","sourceRoot":""}]);
-
-// exports
-
 
 /***/ }),
 
@@ -7967,6 +7806,21 @@ exports.tagByName = constants._reverse(exports.tag);
 
 /***/ }),
 
+/***/ "C8BK":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("FZ+f")(true);
+// imports
+
+
+// module
+exports.push([module.i, "", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"SuperDict.vue","sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "CKAI":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8118,20 +7972,6 @@ var sh = [
   8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
 ];
 
-
-/***/ }),
-
-/***/ "CWT1":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("9Rsd");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("rjj0")("97c207f4", content, true, {});
 
 /***/ }),
 
@@ -30502,6 +30342,20 @@ function objectToString(o) {
 
 /***/ }),
 
+/***/ "jQ/6":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("C8BK");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("rjj0")("39620dde", content, true, {});
+
+/***/ }),
+
 /***/ "jSRM":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34705,6 +34559,99 @@ Service.prototype.end = function end(endedByRPC) {
     return this;
 };
 
+
+/***/ }),
+
+/***/ "r2Kt":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _stringify = __webpack_require__("mvHQ");
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _nebpay = __webpack_require__("6fn7");
+
+var _nebpay2 = _interopRequireDefault(_nebpay);
+
+var _nebulas = __webpack_require__("K1mQ");
+
+var _nebulas2 = _interopRequireDefault(_nebulas);
+
+var _Default = __webpack_require__("ao7l");
+
+var _Default2 = _interopRequireDefault(_Default);
+
+var _Card = __webpack_require__("rhdv");
+
+var _Card2 = _interopRequireDefault(_Card);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  components: {
+    VLayout: _Default2.default,
+    VCard: _Card2.default
+  },
+  data: function data() {
+    return {
+      dappAddress: 'n232muEMwv3FPAsx6g4U57RbngVwWDJ3wTT'
+    };
+  },
+
+  methods: {
+    onSearch: function onSearch() {
+      console.log('search');
+      var Account = _nebulas2.default.Account;
+      var neb = new _nebulas2.default.Neb();
+      neb.setRequest(new _nebulas2.default.HttpRequest('https://testnet.nebulas.io'));
+      var from = Account.NewAccount().getAddressString();
+
+      var value = '0';
+      var nonce = '0';
+      var gas_price = '1000000';
+      var gas_limit = '2000000';
+      var callFunction = 'get';
+      var callArgs = '["' + 'defsss' + '"]';
+      var contract = {
+        function: callFunction,
+        args: callArgs
+      };
+
+      neb.api.call(from, this.dappAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
+        console.log('response of search: ' + (0, _stringify2.default)(resp));
+      }).catch(function (err) {
+        console.log('error:' + err.message);
+      });
+    },
+    onSubmit: function onSubmit() {
+      console.log('submit');
+      var nebPay = new _nebpay2.default();
+
+      var to = this.dappAddress;
+      var value = '0';
+      var callFunction = 'save';
+
+      var callArgs = "[\"" + "defsss" + "\",\"" + "ddd" + "\"]";
+      var serialNumber = nebPay.call(to, value, callFunction, callArgs, {
+        listener: this.cbPush });
+
+      console.log('serialnum', serialNumber);
+    },
+    cbPush: function cbPush(resp) {
+      console.log('response of push: ' + (0, _stringify2.default)(resp));
+    },
+    cbSearch: function cbSearch(resp) {
+      console.log('response of search: ' + (0, _stringify2.default)(resp));
+    }
+  }
+};
 
 /***/ }),
 
@@ -40328,46 +40275,6 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 /***/ }),
 
-/***/ "vwZE":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue__ = __webpack_require__("6lhT");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue__);
-/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_35b2f26f_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_hmpp_vue__ = __webpack_require__("96fM");
-function injectStyle (ssrContext) {
-  __webpack_require__("CWT1")
-}
-var normalizeComponent = __webpack_require__("VU/8")
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_hmpp_vue___default.a,
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_35b2f26f_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_hmpp_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-
-/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
-
-
-/***/ }),
-
 /***/ "vyo6":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41782,6 +41689,46 @@ module.exports = {
     verify: verify,
     recover: recover
 };
+
+
+/***/ }),
+
+/***/ "wqH9":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue__ = __webpack_require__("r2Kt");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd46c80_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SuperDict_vue__ = __webpack_require__("69mH");
+function injectStyle (ssrContext) {
+  __webpack_require__("jQ/6")
+}
+var normalizeComponent = __webpack_require__("VU/8")
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SuperDict_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5dd46c80_hasScoped_false_transformToRequire_video_src_source_src_img_src_image_xlink_href_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SuperDict_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
@@ -44149,4 +44096,4 @@ module.exports = Sha256
 /***/ })
 
 });
-//# sourceMappingURL=1.ecfde49c7bea109f1361.js.map
+//# sourceMappingURL=1.670f7cdf8b629097d3c3.js.map
